@@ -10,3 +10,12 @@
  *
  * @package WooCommerce
  */
+
+ function na_activate(){
+    // Require parent plugin
+        if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) and current_user_can( 'activate_plugins' ) ) {
+            // Stop activation redirect and show error
+            wp_die('Sorry, but this plugin requires the woocommerce plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
+        }
+    }
+    register_activation_hook( __FILE__, 'na_activate' );
