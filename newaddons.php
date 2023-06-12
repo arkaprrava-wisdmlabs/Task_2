@@ -29,7 +29,7 @@ function na_activate(){
     }
 }
 register_activation_hook( __FILE__, 'na_activate' );
-add_action( 'woocommerce_after_order_notes', 'na_checkout_field' );
+add_action( 'woocommerce_review_order_before_submit', 'na_checkout_field' );
 
 function na_checkout_field( $checkout ) {
     if(is_user_logged_in(  )){
