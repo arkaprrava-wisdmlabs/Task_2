@@ -73,3 +73,17 @@ function na_checkout_field( $checkout ) {
     }
 }
 add_action( 'woocommerce_checkout_process', 'na_update_checkout_field' );
+  
+function na_update_checkout_field() {   
+    if(is_user_logged_in(  )){
+        $id = get_current_user_id(); 
+        if ($_POST['hear']) {
+            $hear = $_POST['hear'];
+            update_user_meta($id, 'hear', $hear);
+        }
+        if ($_POST['mode']) {
+            $mode = $_POST['mode'];
+            update_user_meta($id, 'mode', $mode);
+        }
+    }
+}
