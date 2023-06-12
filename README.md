@@ -16,7 +16,7 @@
 		2. Add user meta for hear about us and mode of communication fields, before that 
 		check for the user meta already exists or not in the activation hook
 		3. Check if the User is logged in or not
-		4. Hook into the “woocommerce_after_order_notes” to add input fields in checkout page
+		4. Hook into the “woocommerce_review_order_before_submit” to add input fields in checkout page
 		5. Use woocommerce_form_field to add those fields, using the default value as the latest
 		value of the respective usermeta given.
 		6. Hook into the “woocommerce_checkout_process” to get the values given, when the user 
