@@ -18,3 +18,10 @@ Approach:
 4. Hook into the “woocommerce_after_order_notes” to add input fields in checkout page
 5. Use woocommerce_form_field to add those fields, using the default value as the latest value of the respective usermeta given.
 6. Hook into the “woocommerce_checkout_process” to get the values given, when the user completes the checkout process and update the respective usermeta of the currently logged in user accordingly
+7. Hook into the: 
+    a. “woocommerce_thankyou” in order received thank you page
+    b. “woocommerce_admin_order_details_after_order_details” in order edit page in admin panel
+    c. “woocommerce_after_cart_table” in woocommerce cart page
+    d. “woocommerce_view_order” in single order page in my account page of woocommerce
+to show the usermeta values in the front end.
+
