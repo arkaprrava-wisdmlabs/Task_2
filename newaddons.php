@@ -87,3 +87,34 @@ function na_update_checkout_field() {
         }
     }
 }
+
+add_action( 'woocommerce_thankyou', 'na_show_field' );
+add_action( 'woocommerce_admin_order_data_after_order_details', 'na_show_field');
+add_action( 'woocommerce_after_cart_table', 'na_show_field');
+add_action( 'woocommerce_view_order', 'na_show_field' );
+
+function na_show_field(){
+    if(is_user_logged_in(  )){
+        $id = get_current_user_id();
+        $hear = get_user_meta($id, 'hear');
+        if(empty($hear)){
+            $hear = 'Not set';
+        }
+        else{
+            $hear = $hear[0];
+        }
+        $mode = get_user_meta($id, 'mode');
+        if(empty($mode)){
+            $mode = 'Not set';
+        }
+        else{
+            $mode = $mode[0];
+        }
+        ?>
+        <div>
+            <p>How did you Hear about US: <strong><?php echo $hear?></strong></p>
+            <p>Prefferable Mode of Communication: <strong><?php echo $mode?><strong></p>
+        </div>
+        <?php
+    }
+}
