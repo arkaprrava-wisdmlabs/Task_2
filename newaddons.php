@@ -23,12 +23,12 @@ if( ! defined( 'ABSPATH' )){
 register_activation_hook( __FILE__, 'wdm_activate' );
 function wdm_activate(){
 }
-add_action( 'admin_init', 'child_plugin_has_parent_plugin' );
 /**
- * requires and alwayss check for the woocommerce plugin
+ * requires and always check for the woocommerce plugin
  *
  * @return void
  */
+add_action( 'admin_init', 'child_plugin_has_parent_plugin' );
 function child_plugin_has_parent_plugin() {
     if ( is_admin() && current_user_can( 'activate_plugins' ) &&  !is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
         add_action( 'admin_notices', 'child_plugin_notice' );
