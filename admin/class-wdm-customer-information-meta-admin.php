@@ -49,12 +49,6 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Admin' ) ){
          * @return void
          */
         function wdm_order_show_field($order){
-            $post_type = get_post_type();
-            if($post_type !== 'shop_order'){
-                if( ! is_user_logged_in(  )){
-                    return;
-                }
-            }
             $out = '<div>';
             $order_id = $order -> ID;
             if(!empty(wc_get_order_item_meta($order_id, 'hear'))){

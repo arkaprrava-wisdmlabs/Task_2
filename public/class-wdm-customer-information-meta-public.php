@@ -98,8 +98,8 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
                 $last_order = $customer->get_last_order();
                 if(!empty($last_order)){
                     $order_id = $last_order->get_id();
-                    $out .= '<div>';
-                    $out .= '<h3>Customer Information</h3>';
+                    $head =  '<div>';
+                    $head .= '<h3>Customer Information</h3>';
                     if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
                         $out .='<p>'.__('How did you Hear about US: ', 'na').'<strong>';
                         $out .= wc_get_order_item_meta($order_id, 'hear');
@@ -111,6 +111,9 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
                         $out .= '</strong></p>';
                     }
                     $out .= '</div>';
+                    if( $out !== '</div>' ){
+                        $out = $head . $out;
+                    }
                 }
             }
             echo $out;
@@ -125,10 +128,8 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
          */
         public function wdm_order_show_field($order){
             $post_type = get_post_type();
-            if($post_type !== 'shop_order'){
-                if( ! is_user_logged_in(  )){
-                    return;
-                }
+            if( ! is_user_logged_in()){
+                return;
             }
             $out = '<div>';
             $order_id = $order -> ID;
