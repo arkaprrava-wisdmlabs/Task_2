@@ -46,7 +46,7 @@ function child_plugin_has_parent_plugin() {
  * @return void
  */
 function child_plugin_notice(){
-    ?><div class="error"><p>Sorry, but This Plugin requires the WooCommerce plugin to be installed and active.</p></div><?php
+    ?><div class="error"><p>Sorry, but Customer Information Meta Plugin requires the WooCommerce plugin to be installed and active.</p></div><?php
 }
 /**
  * It first creates order item meta for Hear About Us and Mode of Communication Fields
