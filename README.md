@@ -5,9 +5,9 @@
 		<li>How did you hear about us? - Textbox
 		<li>Preferable mode of communication - Dropdown with 
 			<ol>
-				<li>"Email",</li> <li>"Call"</li> and <li>"Message"</li> 
-			as options
+				<li>"Email",</li> <li>"Call",</li><li>"Message"</li>
 			</ol>
+			as options
 		</li>
 	</ol>
 	<p>The same fields with the selected values during checkout should show up on the following pages:<p>
