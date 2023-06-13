@@ -22,9 +22,13 @@ if( ! defined( 'ABSPATH' )){
  */
 register_activation_hook( __FILE__, 'wdm_activate' );
 function wdm_activate(){
-// Require parent plugin
 }
 add_action( 'admin_init', 'child_plugin_has_parent_plugin' );
+/**
+ * requires and alwayss check for the woocommerce plugin
+ *
+ * @return void
+ */
 function child_plugin_has_parent_plugin() {
     if ( is_admin() && current_user_can( 'activate_plugins' ) &&  !is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
         add_action( 'admin_notices', 'child_plugin_notice' );
@@ -36,7 +40,11 @@ function child_plugin_has_parent_plugin() {
         }
     }
 }
-
+/**
+ * displays admin notice on dependency plugin not active
+ *
+ * @return void
+ */
 function child_plugin_notice(){
     ?><div class="error"><p>Sorry, but This Plugin requires the WooCommerce plugin to be installed and active.</p></div><?php
 }
