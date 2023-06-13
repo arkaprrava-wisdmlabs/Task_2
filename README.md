@@ -19,18 +19,17 @@
 
 
 ## Approach:
-	1. Check for whether woocommerce plugin installed activated or not
-	2. add order item meta to the order
-	3. Check if the User is logged in or not
-	4. Hook into the “woocommerce_review_order_before_submit” to add input fields in checkout page
-	5. Use woocommerce_form_field to add those fields, using the default value as the latest
-	value of the respective usermeta given.
-	6. Hook into the “woocommerce_checkout_process” to get the values given, when the user 
-	completes the checkout process and update the respective usermeta of the currently logged in user accordingly
-	7. Hook into the: 
-		a. “woocommerce_thankyou” in order received thank you page
-		b. “woocommerce_admin_order_details_after_order_details” in order edit page in admin panel
-		c. “woocommerce_after_cart_table” in woocommerce cart page
-		d. “woocommerce_view_order” in single order page in my account page of woocommerce
-	to show the usermeta values in the front end.
-
+<ol>
+	<li>Check for whether woocommerce plugin installed activated or not</li>
+	<li>Hook into <strong>'admin_init'</strong> to show notice when dependency is no active <br> and the plugin tries to activate</li>
+	<li>Hook into <strong>'woocommerce_review_order_before_submit'</strong> to add input fields <br>for order item meta</li>
+	<li>Use <strong>woocommerce_form_field</strong> to add input fields</li>
+	<li>Check if the user logged in or not</li>
+	<li>If logged in, Check for the last order item meta field values</li>
+	<li>If order meta present, put it as default value of the fields</li>
+	<li>Hook into <strong>'woocommerce_checkout_order_processed'</strong> to get input fields <br>and save order item meta</li>
+	<li>Hook into <strong>'woocommerce_after_cart_table'</strong> to show the last order item <br>meta in WooCommerce Cart Page, if the user<br> is logged in, otherwise, shows nothing</li>
+	<li>Hook into <strong>'woocommerce_order_details_after_customer_details'</strong> to show the last order item <br>meta in WooCommerce order recieved thankyou page <br> and in Woocommerce single order page in Woocommerce My Account page,<br> if the user is logged in, otherwise, shows nothing</li>
+	<li></li>
+	<li></li>
+</ol>
