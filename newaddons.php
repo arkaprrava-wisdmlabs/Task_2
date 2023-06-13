@@ -20,6 +20,7 @@ if( ! defined( 'ABSPATH' )){
  *
  * @return void
  */
+register_activation_hook( __FILE__, 'wdm_activate' );
 function wdm_activate(){
 // Require parent plugin
     if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) and current_user_can( 'activate_plugins' ) ) {
@@ -30,8 +31,6 @@ function wdm_activate(){
         wp_die('Sorry, but this plugin requires the woocommerce plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
     }
 }
-register_activation_hook( __FILE__, 'wdm_activate' );
-add_action( 'woocommerce_review_order_before_submit', 'wdm_checkout_field' );
 /**
  * It first creates order item meta for Hear About Us and Mode of Communication Fields
  * Then it adds custom input field in checkout page for those order item meta
@@ -39,6 +38,7 @@ add_action( 'woocommerce_review_order_before_submit', 'wdm_checkout_field' );
  * @param [type] $checkout
  * @return void
  */
+add_action( 'woocommerce_review_order_before_submit', 'wdm_checkout_field' );
 function wdm_checkout_field( $checkout ) {
     $hear = '';
     $mode = '';
@@ -80,7 +80,6 @@ function wdm_checkout_field( $checkout ) {
         $mode
     );
 }
-add_action( 'woocommerce_checkout_order_processed', 'wdm_update_checkout_field' , 10, 3);
 /**
  * it adds the order item meta that is filled by the user while purchasing the products
  * and fires the action upon clicking place order
@@ -90,6 +89,7 @@ add_action( 'woocommerce_checkout_order_processed', 'wdm_update_checkout_field' 
  * @param [type] $order
  * @return void
  */
+add_action( 'woocommerce_checkout_order_processed', 'wdm_update_checkout_field' , 10, 3);
 function wdm_update_checkout_field( $order_id, $posted_data, $order ) {
     if ($_POST['hear']) {
         $hear = $_POST['hear'];
@@ -101,13 +101,12 @@ function wdm_update_checkout_field( $order_id, $posted_data, $order ) {
     }
 }
 
-add_action( 'woocommerce_admin_order_data_after_billing_address', 'wdm_show_field');
-add_action( 'woocommerce_after_cart_table', 'wdm_show_field');
 /**
  * It shows the latest order item metas of current user if exists
  *
  * @return void
  */
+add_action( 'woocommerce_after_cart_table', 'wdm_show_field');
 function wdm_show_field(){
     $out = '';
     if(is_user_logged_in(  )){
@@ -117,6 +116,7 @@ function wdm_show_field(){
         if(!empty($last_order)){
             $order_id = $last_order->get_id();
             $out .= '<div>';
+            $out .= '<h3>Customer Information</h3>';
             if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
                 $out .='<p>'.__('How did you Hear about US: ', 'na').'<strong>';
                 $out .= wc_get_order_item_meta($order_id, 'hear');
@@ -134,14 +134,21 @@ function wdm_show_field(){
 }
 
 
-add_action( 'woocommerce_order_details_after_customer_details', 'wdm_order_show_field' );
 /**
  * show 'hear' and 'mode' item metas of every order items
  *
  * @param [type] $order_id
  * @return void
  */
+add_action( 'woocommerce_order_details_after_customer_details', 'wdm_order_show_field' );
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'wdm_order_show_field');
 function wdm_order_show_field($order){
+    $post_type = get_post_type();
+    if($post_type !== 'shop_order'){
+        if( ! is_user_logged_in(  )){
+            return;
+        }
+    }
     $out = '<div>';
     $order_id = $order -> ID;
     if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
