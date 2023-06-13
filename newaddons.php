@@ -23,13 +23,22 @@ if( ! defined( 'ABSPATH' )){
 register_activation_hook( __FILE__, 'wdm_activate' );
 function wdm_activate(){
 // Require parent plugin
-    if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) and current_user_can( 'activate_plugins' ) ) {
-        // Stop activation redirect and show error
-        deactivate_plugins( plugin_basename( __FILE__ ) );
-        // $err = new WP_Error();
-        // $err -> add('required', 'Sorry, but this plugin requires the woocommerce plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
-        wp_die('Sorry, but this plugin requires the woocommerce plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
+}
+add_action( 'admin_init', 'child_plugin_has_parent_plugin' );
+function child_plugin_has_parent_plugin() {
+    if ( is_admin() && current_user_can( 'activate_plugins' ) &&  !is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+        add_action( 'admin_notices', 'child_plugin_notice' );
+
+        deactivate_plugins( plugin_basename( __FILE__ ) ); 
+
+        if ( isset( $_GET['activate'] ) ) {
+            unset( $_GET['activate'] );
+        }
     }
+}
+
+function child_plugin_notice(){
+    ?><div class="error"><p>Sorry, but This Plugin requires the WooCommerce plugin to be installed and active.</p></div><?php
 }
 /**
  * It first creates order item meta for Hear About Us and Mode of Communication Fields
