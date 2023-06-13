@@ -1,15 +1,20 @@
 <?php
 /**
  * Plugin Name: Customer Information Meta
+ * Plugin URI: https://github.com/arkaprrava-wisdmlabs/Task_2.git
  * Description: Adds Hear About Us and Mode of Communication field to customers meta data.
  * Version: 1.0.0
  * Author: Arkaprava
  * Text Domain: na
+ * License: GPLv2 or later
  * Requires at least: 6.0
  * Requires PHP: 7.3
- *
- * @package WooCommerce
+ * @package newaddons
  */
+if( ! defined( 'ABSPATH' )){
+    die;
+}
+
 /**
  * activates the plugin
  *
@@ -96,11 +101,10 @@ function wdm_update_checkout_field( $order_id, $posted_data, $order ) {
     }
 }
 
-add_action( 'woocommerce_thankyou', 'wdm_show_field' );
-add_action( 'woocommerce_admin_order_data_after_order_details', 'wdm_show_field');
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'wdm_show_field');
 add_action( 'woocommerce_after_cart_table', 'wdm_show_field');
 /**
- * It shows the lastest order item metas of current user if exists
+ * It shows the latest order item metas of current user if exists
  *
  * @return void
  */
@@ -130,15 +134,16 @@ function wdm_show_field(){
 }
 
 
-add_action( 'woocommerce_view_order', 'wdm_order_show_field' );
+add_action( 'woocommerce_order_details_after_customer_details', 'wdm_order_show_field' );
 /**
  * show 'hear' and 'mode' item metas of every order items
  *
  * @param [type] $order_id
  * @return void
  */
-function wdm_order_show_field($order_id){
+function wdm_order_show_field($order){
     $out = '<div>';
+    $order_id = $order -> ID;
     if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
         $out .='<p>'.__('How did you Hear about US: ', 'na').'<strong>';
         $out .= wc_get_order_item_meta($order_id, 'hear');
