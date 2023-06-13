@@ -29,7 +29,7 @@
 	<li>If order meta present, put it as default value of the fields</li>
 	<li>Hook into <strong>'woocommerce_checkout_order_processed'</strong> to get input fields and save order item meta</li>
 	<li>Hook into <strong>'woocommerce_after_cart_table'</strong> to show the last order item meta in WooCommerce Cart Page, if the user<br> is logged in, otherwise, shows nothing</li>
-	<li>Hook into <strong>'woocommerce_order_details_after_customer_details'</strong> to show the last order item meta in WooCommerce order recieved thankyou page <br> and in Woocommerce single order page in Woocommerce My Account page,<br> if the user is logged in, otherwise, shows nothing</li>
+	<li>Hook into <strong>'woocommerce_order_details_after_customer_details'</strong> to show the last order item meta in WooCommerce order recieved thankyou page and in Woocommerce single order page in Woocommerce My Account page, if the user is logged in, otherwise, shows nothing</li>
 	<li></li>
 	<li></li>
 </ol>
