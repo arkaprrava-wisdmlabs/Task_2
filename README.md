@@ -21,15 +21,15 @@
 ## Approach:
 <ol>
 	<li>Check for whether woocommerce plugin installed activated or not</li>
-	<li>Hook into <strong>'admin_init'</strong> to show notice when dependency is no active <br> and the plugin tries to activate</li>
-	<li>Hook into <strong>'woocommerce_review_order_before_submit'</strong> to add input fields <br>for order item meta</li>
+	<li>Hook into <strong>'admin_init'</strong> to show notice when dependency is no active and the plugin tries to activate</li>
+	<li>Hook into <strong>'woocommerce_review_order_before_submit'</strong> to add input fields for order item meta</li>
 	<li>Use <strong>woocommerce_form_field</strong> to add input fields</li>
 	<li>Check if the user logged in or not</li>
 	<li>If logged in, Check for the last order item meta field values</li>
 	<li>If order meta present, put it as default value of the fields</li>
-	<li>Hook into <strong>'woocommerce_checkout_order_processed'</strong> to get input fields <br>and save order item meta</li>
-	<li>Hook into <strong>'woocommerce_after_cart_table'</strong> to show the last order item <br>meta in WooCommerce Cart Page, if the user<br> is logged in, otherwise, shows nothing</li>
-	<li>Hook into <strong>'woocommerce_order_details_after_customer_details'</strong> to show the last order item <br>meta in WooCommerce order recieved thankyou page <br> and in Woocommerce single order page in Woocommerce My Account page,<br> if the user is logged in, otherwise, shows nothing</li>
+	<li>Hook into <strong>'woocommerce_checkout_order_processed'</strong> to get input fields and save order item meta</li>
+	<li>Hook into <strong>'woocommerce_after_cart_table'</strong> to show the last order item meta in WooCommerce Cart Page, if the user<br> is logged in, otherwise, shows nothing</li>
+	<li>Hook into <strong>'woocommerce_order_details_after_customer_details'</strong> to show the last order item meta in WooCommerce order recieved thankyou page <br> and in Woocommerce single order page in Woocommerce My Account page,<br> if the user is logged in, otherwise, shows nothing</li>
 	<li></li>
 	<li></li>
 </ol>
