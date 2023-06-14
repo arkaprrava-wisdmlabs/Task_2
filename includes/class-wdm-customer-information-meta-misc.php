@@ -1,7 +1,7 @@
 <?php
 if( ! class_exists( 'WDM_Customer_Information_Meta_Misc' ) ){
     /**
-     * working with customer side data and frontend pressentation
+     * miscellaneous functions
      */
     class WDM_Customer_Information_Meta_Misc{
         /**
