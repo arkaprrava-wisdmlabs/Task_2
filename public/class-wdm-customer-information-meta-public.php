@@ -11,7 +11,11 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
          * @param [type] $checkout
          * @return void
          */
-        public function wdm_checkout_field( $checkout ) {
+        protected $plugin_dir_path;
+        public function __construct($plugin_dir_path){
+            $this->plugin_dir_path = $plugin_dir_path;
+        }
+        function wdm_checkout_field( $checkout ) {
             $hear = '';
             $mode = '';
             if(is_user_logged_in(  )){
@@ -74,11 +78,11 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
             }
         }
         /**
-         * It shows the latest order item metas of current user if exists
+         * It shows the latest order item metas of current user if exists in the cart page
          *
          * @return void
          */
-        public function wdm_show_field(){
+        public function wdm_cart_show_field(){
             $out = '';
             if(is_user_logged_in(  )){
                 $id = get_current_user_id();
@@ -99,12 +103,26 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
                         $out .= '</strong></p>';
                     }
                     $out .= '</div>';
-                    if( $out !== '</div>' ){
+                    if($out !== '</div>'){
                         $out = $head . $out;
                     }
                 }
             }
             echo $out;
+        }
+        /**
+         * overrides the template order-details-customer
+         *
+         * @param [type] $template
+         * @param [type] $template_name
+         * @param [type] $template_path
+         * @return void
+         */
+        function wdm_override_woocommerce_order_billing_template( $template, $template_name, $template_path ) {
+            if ( $template_name === 'order/order-details-customer.php' ) {
+                $template = $this->plugin_dir_path . 'includes/order-details-customer.php';
+            }
+            return $template;
         }
     }
 }
