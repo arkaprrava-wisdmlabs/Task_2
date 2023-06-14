@@ -40,7 +40,7 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Admin' ) ){
          * @return void
          */
         public function wdm_admin_notice(){
-            ?><div class="error"><p>Sorry, but Customer Information Meta Plugin requires the WooCommerce plugin to be installed and active.</p></div><?php
+            ?><div class="error"><p><?php _e( 'Sorry, but Customer Information Meta Plugin requires the WooCommerce plugin to be installed and active.' ); ?></p></div><?php
         }
         /**
          * displays order item meta in edit order page
