@@ -61,7 +61,6 @@ if( ! class_exists( 'WDM_Customer_Information_Meta' ) ){
             require_once plugin_dir_path( __FILE__ ).'admin/class-wdm-customer-information-meta-admin.php';
             $admin = new WDM_Customer_Information_Meta_Admin($this->plugin_name);
             add_action('admin_init', array( $admin, 'child_plugin_has_parent_plugin'));
-            add_action('woocommerce_admin_order_data_after_billing_address', array( $this->misc_function, 'wdm_order_show_field'));
         }
         /**
          * define all the public hooks
@@ -74,7 +73,7 @@ if( ! class_exists( 'WDM_Customer_Information_Meta' ) ){
             add_action('woocommerce_after_checkout_billing_form', array( $public, 'wdm_checkout_field'));
             add_action('woocommerce_checkout_order_processed', array( $public, 'wdm_update_checkout_field'), 10, 3);
             add_action('woocommerce_after_cart_table', array( $public, 'wdm_show_field'));
-            add_action('woocommerce_order_details_after_customer_details', array( $this->misc_function, 'wdm_order_show_field'));
+            add_filter( 'woocommerce_order_get_formatted_billing_address',array($this->misc_function, 'wdm_billing_address_filter') , 10, 3 );
         }
     }
 }

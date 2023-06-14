@@ -10,29 +10,26 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Misc' ) ){
          * @param [type] $order_id
          * @return void
          */
-        public function wdm_order_show_field($order){
-            $post_type = get_post_type();
-            if($post_type !== 'shop_order'){
-                if( ! is_user_logged_in(  )){
-                    return;
-                }
+        public function wdm_billing_address_filter( $address, $raw_address, $order ){
+            if( ! is_user_logged_in(  )){
+                return $address;
             }
-            $out = '<div>';
+            $out = '<div><br>';
             $order_id = $order -> ID;
-            $container = wc_get_order_item_meta($order_id, 'hear');
-            if(!empty($container)){
-                $out .='<p>'.__('How did you Hear about US: ', 'wdm_cim').'<strong>';
-                $out .= $container;
+            if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
+                $out .='<p>'.__('How did you Hear about US: ', 'na').'<strong>';
+                $out .= wc_get_order_item_meta($order_id, 'hear');
                 $out .= '</strong></p>';
             }
-            $container = wc_get_order_item_meta($order_id, 'mode');
-            if(!empty($container)){
-                $out .='<p>'.__('Preffered mode of communication: ', 'wdm_cim').'<strong>';
-                $out .= $container;
+            if(!empty(wc_get_order_item_meta($order_id, 'mode'))){
+                $out .='<p>'.__('Preffered mode of communication: ', 'na').'<strong>';
+                $out .= wc_get_order_item_meta($order_id, 'mode');
                 $out .= '</strong></p>';
             }
             $out .= '</div>';
-            echo $out;
+            $address .= $out;
+            // filter...
+            return $address;
         }
     }
 }
