@@ -40,29 +40,7 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Admin' ) ){
          * @return void
          */
         public function child_plugin_notice(){
-            ?><div class="error"><p>Sorry, but Customer Information Meta Plugin requires the WooCommerce plugin to be installed and active.</p></div><?php
-        }
-        /**
-         * show 'hear' and 'mode' item metas of every order items
-         *
-         * @param [type] $order_id
-         * @return void
-         */
-        function wdm_order_show_field($order){
-            $out = '<div>';
-            $order_id = $order -> ID;
-            if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
-                $out .='<p>'.__('How did you Hear about US: ', 'na').'<strong>';
-                $out .= wc_get_order_item_meta($order_id, 'hear');
-                $out .= '</strong></p>';
-            }
-            if(!empty(wc_get_order_item_meta($order_id, 'mode'))){
-                $out .='<p>'.__('Preffered mode of communication: ', 'na').'<strong>';
-                $out .= wc_get_order_item_meta($order_id, 'mode');
-                $out .= '</strong></p>';
-            }
-            $out .= '</div>';
-            echo $out;
+            ?><div class="error"><p><?php __('Sorry, but Customer Information Meta Plugin requires the WooCommerce plugin to be installed and active.', 'wdm_cim'); ?></p></div><?php
         }
     }
 }

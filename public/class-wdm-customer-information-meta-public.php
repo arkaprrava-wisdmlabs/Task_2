@@ -5,20 +5,6 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
      */
     class WDM_Customer_Information_Meta_Public{
         /**
-         * defines the plugin basename
-         *
-         * @var [type]
-         */
-        protected $plugin_name;
-        /**
-         * constructor for the class
-         *
-         * @param [type] $plugin_name
-         */
-        public function __construct($plugin_name){
-            $this->plugin_name = $plugin_name;
-        }
-        /**
          * It first creates order item meta for Hear About Us and Mode of Communication Fields
          * Then it adds custom input field in checkout page for those order item meta
          *
@@ -34,11 +20,13 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
                 $last_order = $customer->get_last_order();
                 if(!empty($last_order)){
                     $order_id   = $last_order->get_id();
-                    if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
-                        $hear = wc_get_order_item_meta($order_id, 'hear');
+                    $container = wc_get_order_item_meta($order_id, 'hear');
+                    if(!empty($container)){
+                        $hear = $container;
                     }
-                    if(!empty(wc_get_order_item_meta($order_id, 'mode'))){
-                        $mode = wc_get_order_item_meta($order_id, 'mode');
+                    $container = wc_get_order_item_meta($order_id, 'mode');
+                    if(!empty($container)){
+                        $mode = $container;
                     }
                 }
             }
@@ -46,7 +34,7 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
                 'hear', 
                 array(
                     'type'          => 'text',
-                    'label'         => __('How did you Hear about Us', 'na'),
+                    'label'         => __('How did you Hear about Us', 'wdm_cim'),
                     ), 
                 $hear
             );
@@ -55,7 +43,7 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
                 'mode', 
                 array(
                     'type'      => 'select',
-                    'label'     => __('Mode of Communication', 'na'),
+                    'label'     => __('Mode of Communication', 'wdm_cim'),
                     'options'   => array(
                         ''          => __('--select--','na'),
                         'Email'     => __('Email','na'),
@@ -99,14 +87,14 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
                 if(!empty($last_order)){
                     $order_id = $last_order->get_id();
                     $head =  '<div>';
-                    $head .= '<h3>Customer Information</h3>';
+                    $head .= '<h3>'.__('Customer Information', 'wdm_cim').'</h3>';
                     if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
-                        $out .='<p>'.__('How did you Hear about US: ', 'na').'<strong>';
+                        $out .='<p>'.__('How did you Hear about US: ', 'wdm_cim').'<strong>';
                         $out .= wc_get_order_item_meta($order_id, 'hear');
                         $out .= '</strong></p>';
                     }
                     if(!empty(wc_get_order_item_meta($order_id, 'mode'))){
-                        $out .='<p>'.__('Preffered mode of communication: ', 'na').'<strong>';
+                        $out .='<p>'.__('Preffered mode of communication: ', 'wdm_cim').'<strong>';
                         $out .= wc_get_order_item_meta($order_id, 'mode');
                         $out .= '</strong></p>';
                     }
@@ -116,34 +104,6 @@ if( ! class_exists( 'WDM_Customer_Information_Meta_Public' ) ){
                     }
                 }
             }
-            echo $out;
-        }
-
-
-        /**
-         * show 'hear' and 'mode' item metas of every order items
-         *
-         * @param [type] $order_id
-         * @return void
-         */
-        public function wdm_order_show_field($order){
-            $post_type = get_post_type();
-            if( ! is_user_logged_in()){
-                return;
-            }
-            $out = '<div>';
-            $order_id = $order -> ID;
-            if(!empty(wc_get_order_item_meta($order_id, 'hear'))){
-                $out .='<p>'.__('How did you Hear about US: ', 'na').'<strong>';
-                $out .= wc_get_order_item_meta($order_id, 'hear');
-                $out .= '</strong></p>';
-            }
-            if(!empty(wc_get_order_item_meta($order_id, 'mode'))){
-                $out .='<p>'.__('Preffered mode of communication: ', 'na').'<strong>';
-                $out .= wc_get_order_item_meta($order_id, 'mode');
-                $out .= '</strong></p>';
-            }
-            $out .= '</div>';
             echo $out;
         }
     }
